@@ -1,0 +1,16 @@
+module "rds" {
+  source = "./rds"
+  is_enabled = "${var.is_enabled && var.cluster_db_provider == "rds" ? "true" : "false"}"
+  #depends_on = "${var.cluster_depends_on}"
+  aws_region =  "${length(var.az_region) > 0 ? "${var.az_region}" : "us-east-1"}"
+  vpc_id = "${var.cluster_db_vpc}"
+  subnet_ids = "${var.cluster_db_subnets}"
+  securitygroup_ips = "${var.cluster_db_securitygroup_ips}" 
+  prefix = "${var.provider_prefix}"
+  database_name= "${var.cluster_db_name}"
+  master_username = "${var.cluster_db_master_username}"
+  master_user_password = "${var.cluster_db_master_password}"
+  db_instance_class = "${var.cluster_db_instance_class}"
+  postgres_version = "${var.cluster_db_postgres_version}"
+  db_size_in_gb  = "${var.cluster_db_size_in_gb}"
+}

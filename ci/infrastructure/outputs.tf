@@ -38,3 +38,23 @@ output "cluster-config" {
 output "cluster-auth-config" {
   value = "${coalesce(module.infra.cluster-auth-config, module.cluster.cluster-auth-config)}"
 }
+
+output "cluster-vpc-id" {
+  value = "${module.infra.cluster-vpc-id}"
+}
+
+output "cluster-ssh-security-groups-ids" {
+  value = "${module.infra.cluster-ssh-security-groups-ids}"
+}
+
+output "cluster-http-ingress-security-groups-ids" {
+  value = "${module.infra.cluster-http-ingress-security-groups-ids}"
+}
+
+output "cluster-subnet-ids" {
+  value = "${module.infra.cluster-subnet-ids}"
+}
+
+output "cluster-db-endpoint" {
+  value = "${module.database.endpoint}"
+}

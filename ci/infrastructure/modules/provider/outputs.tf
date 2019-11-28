@@ -66,3 +66,19 @@ output "cluster-auth-config" {
 output "additional-modules" {
   value = "${module.cloud.additional-modules}"
 }
+
+output "cluster-vpc-id" {
+  value = "${module.cloud.cluster-vpc-id}"
+}
+
+output "cluster-ssh-security-groups-ids" {
+  value = "${module.cloud.cluster-ssh-security-groups-ids}"
+}
+
+output "cluster-http-ingress-security-groups-ids" {
+  value = "${module.cloud.cluster-http-ingress-security-groups-ids}"
+}
+
+output "cluster-subnet-ids" {
+  value = "${module.cloud.cluster-subnet-ids}"
+}

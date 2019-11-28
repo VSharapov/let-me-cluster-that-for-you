@@ -251,3 +251,77 @@ variable "cluster_domain_name" {
   description = "The domain name to use for private dns names"
   default = "opssight.internal"
 }
+
+variable "cluster_db_vpc" {
+  type = "string"
+  default = ""
+}
+
+variable "cluster_db_subnets" {
+  type = "string"
+  default = ""
+}
+
+variable "cluster_db_securitygroup_ips" {
+  type = "string"
+  default = ""
+}
+
+variable "cluster_db_name" {
+  type = "string"
+  default = ""
+}
+
+variable "cluster_db_provider" {
+  type = "string"
+  default = ""
+}
+
+variable "DB_SIZE_IN_GB" {
+  type = "string"
+}
+
+variable "POSTGRESQL_VERSION" {
+  type = "string"
+}
+
+variable "DB_INSTANCE_CLASS" {
+  type = "string"
+}
+
+variable "DATABASE_NAME" {
+  type = "string"
+}
+
+variable "MASTER_USERNAME" {
+  type = "string"
+}
+
+variable "MASTER_USER_PASSWORD" {
+  type = "string"
+}
+
+variable "cluster_db_master_username"{
+  type = "string"
+  default = ""
+}
+
+variable "cluster_db_master_password"{
+  type = "string"
+  default = ""
+}
+
+variable "cluster_db_instance_class"{
+  type = "string"
+  default = ""
+}
+
+variable "cluster_db_postgres_version"{
+  type = "string"
+  default = ""
+}
+
+variable "cluster_db_size_in_gb"{
+  type = "string"
+  default = ""
+}

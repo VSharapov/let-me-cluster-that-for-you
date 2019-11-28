@@ -111,3 +111,20 @@ module "cluster" {
 
   cluster_min_free_disk_gb = "${var.cluster_min_free_space_gb}"
 }
+
+module "database" {
+  source = "./modules/database"
+  provider_name = "${var.DATABASE_NAME}"
+  provider_prefix = "${var.cluster_prefix}"
+  is_enabled = "${var.cluster_db_provider != "" ? "true" : "false"}"
+  cluster_db_provider = "${var.cluster_db_provider}"
+  cluster_db_vpc = "${module.infra.cluster-vpc-id}"
+  cluster_db_subnets = "${module.infra.cluster-subnet-ids}"
+  cluster_db_securitygroup_ips = "${module.infra.worker-public-ips}"
+  cluster_db_name = "${var.DATABASE_NAME}"
+  cluster_db_master_username = "${var.MASTER_USERNAME}"
+  cluster_db_master_password = "${var.MASTER_USER_PASSWORD}"
+  cluster_db_instance_class  = "${var.DB_INSTANCE_CLASS}"
+  cluster_db_postgres_version = "${var.POSTGRESQL_VERSION}"
+  cluster_db_size_in_gb       = "${var.DB_SIZE_IN_GB}"
+}

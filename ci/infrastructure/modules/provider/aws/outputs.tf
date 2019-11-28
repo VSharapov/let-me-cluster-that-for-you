@@ -66,3 +66,18 @@ output "cluster-auth-config" {
 output "additional-modules" {
   value = ["docker", "cluster"]
 }
+
+output "cluster-vpc-id" {
+  value = "${aws_vpc.cluster.*.id}"
+}
+
+output "cluster-ssh-security-groups-ids" {
+  value = "${aws_security_group.cluster-ssh.*.id}"
+}
+
+output "cluster-http-ingress-security-groups-ids" {
+  value = "${aws_security_group.cluster-http-public-ingress.*.id}"
+}
+output "cluster-subnet-ids" {
+  value = "${aws_subnet.public-subnet.*.id}"
+}

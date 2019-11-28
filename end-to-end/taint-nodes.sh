@@ -24,8 +24,7 @@ echo "$NODES" # should look like this: -H root@10.10.1.114 -H root@10.10.1.122 -
 #  sudo "sh -c 'sed -e "/cadvisor-port=0/d" -i /etc/systemd/system/kubelet.service.d/10-kubeadm.conf; systemctl daemon-reload; systemctl restart kubelet'"
 
 # TODO: taint and label 50 percent of the worker nodes
-kubectl taint nodes worker8-perf-polaris-ci-kube1-15-3-1m9w kubernetes.i
-o/os=linux64:NoSchedule
+kubectl taint nodes worker8-perf-polaris-ci-kube1-15-3-1m9w kubernetes.io/os=linux64:NoSchedule
 
 kubectl label node worker1-polaris-qa-ci-kube1-15-3-1m4w os=linux64
 

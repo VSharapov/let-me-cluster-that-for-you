@@ -30,6 +30,15 @@ KUBERNETES_VERSION="1.15.4"
 # INGRESS=NGINX_INGRESS
 # WORKER_IMAGE="c4.2xlarge"
 
+export TF_VAR_DATABASE_NAME=${2}
+export TF_VAR_MASTER_USERNAME=${4:-none}
+export TF_VAR_MASTER_USER_PASSWORD=${5:-none}ap
+
+# static parameters that may be taken as arguments
+export TF_VAR_DB_SIZE_IN_GB=10
+export TF_VAR_DB_INSTANCE_CLASS="db.m4.large"
+export TF_VAR_POSTGRESQL_VERSION=9.6
+
 main_work_dir="/lmctfy"
 ci_kube_path="${main_work_dir}/ci/kube"
 ci_configs_path="${ci_kube_path}/configs"
@@ -67,29 +76,31 @@ sed -i.bak "s/infra/${NAME}/g" "${ci_kube_path}/cluster.sh"
 # run kube-create script with the destination config
 cd ${ci_kube_path} && ./kube-create.sh "configs/${now}_${NAME}_${ci_source_config_filename}"
 
+
+
 # wait for cluster creation to finish
 # wait
 
 # copy kubeconfig to configure the rest of the way with yaml
-mkdir -p ~/.kube && cp /tmp/kubeconfig ~/.kube/config
+# mkdir -p ~/.kube && cp /tmp/kubeconfig ~/.kube/config
 
-addons_dir="${main_work_dir}/k8s-addons"
+# addons_dir="${main_work_dir}/k8s-addons"
 
-# Download ingress using helm [TODO: change this]
-cd "${addons_dir}/ingress/using-helm-v3" && ./download-ingress.sh
+# # Download ingress using helm [TODO: change this]
+# cd "${addons_dir}/ingress/using-helm-v3" && ./download-ingress.sh
 
-# Download storage
-# TODO: if managed kubernetes, don't create a dynamic provisioner
-cd "${addons_dir}/storage/external-storage/local-volume/local-path-provisioner" && ./install-local-path-provisioner.sh
+# # Download storage
+# # TODO: if managed kubernetes, don't create a dynamic provisioner
+# cd "${addons_dir}/storage/external-storage/local-volume/local-path-provisioner" && ./install-local-path-provisioner.sh
 
 # DATABASE CREATION NOW
 # TODO: pull out database part out of this script
 # cases for different providers
-if [[ "${DB_PROVIDER}" == "RDS" ]]; then
-  printf "Creating a RDS Database with name: %s" "${NAME}"
-  cd "${main_work_dir}/database" && ./create-aws-rds.sh "${NAME}" "${MASTER_USERNAME}" "${MASTER_USER_PASSWORD}"
-elif [[ "${DB_PROVIDER}" == "NONE" ]]; then
-  printf "Not creating a Database as requested"
-else
-  printf "Don't know this database option"
-fi
+# if [[ "${DB_PROVIDER}" == "RDS" ]]; then
+#   printf "Creating a RDS Database with name: %s" "${NAME}"
+#   cd "${main_work_dir}/database" && ./create-aws-rds.sh "${NAME}" "${MASTER_USERNAME}" "${MASTER_USER_PASSWORD}"
+# elif [[ "${DB_PROVIDER}" == "NONE" ]]; then
+#   printf "Not creating a Database as requested"
+# else
+#   printf "Don't know this database option"
+# fi
